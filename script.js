@@ -31,7 +31,6 @@ function operate(firstValue, secondValue, operator){
         case '/':
             return divide(firstValue, secondValue);
     }
-}t display = '123' 
+}
 
-le
 

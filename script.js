@@ -33,4 +33,35 @@ function operate(firstValue, secondValue, operator){
     }
 }
 
+const digitButtons = document.querySelectorAll('.digit');
+const display = document.querySelector('.display');
 
+function handleDigitClick(e){
+    if (operator === '') {
+        firstValue += e.target.textContent;
+    }
+    else {
+        secondValue += e.target.textContent;
+    }
+    updateDisplay();
+}
+
+function handleOperatorClick(e){
+        if(firstValue.length > 0){
+            operator = e.target.textContent
+            updateDisplay();
+        }
+    }
+
+function handleEqualsClick(){
+    if (firstValue.length > 0 && secondValue.length > 0){
+    }
+}
+
+function updateDisplay(){
+    display.textContent = firstValue + operator + secondValue;
+}
+
+digitButtons.forEach(button => {
+    button.addEventListener('click', handleDigitClick);
+});

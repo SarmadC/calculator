@@ -1,0 +1,44 @@
+button{
+    font-family:'Courier New', Courier, monospace ;
+    font-size: 20px;
+}
+
+body {
+    background-color: rgb(25, 25, 25);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calculator{
+    border-style: solid;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+}
+
+.buttons{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.display{
+    display: flex;
+    justify-content: right;
+    background-color:rgb(50, 50, 50);
+    color: white;
+    font-family:'Courier New', Courier, monospace ;
+    padding: 10px;
+}
+
+.buttons{
+    background-color: rgb(50, 50, 50);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+
+}
+

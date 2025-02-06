@@ -24,6 +24,9 @@ let secondValue = '';
 function operate(firstValue, secondValue, operator){
     firstValue = parseFloat(firstValue);
     secondValue = parseFloat(secondValue);
+    if (isNaN(firstValue) || isNaN(secondValue)){
+        return 'Error';
+    }
     switch(operator){
         case '+':
             return add(firstValue, secondValue);
@@ -33,6 +36,8 @@ function operate(firstValue, secondValue, operator){
             return multiply(firstValue, secondValue);
         case '/':
             return divide(firstValue, secondValue);
+        default:
+            return 'Error';
     }
 }
 
@@ -58,13 +63,11 @@ function handleOperatorClick(e){
         firstValue = result;
         operator = e.target.textContent;
         secondValue = '';
-
-        updateDisplay();
     }
     else if(firstValue.length > 0){
         operator = e.target.textContent
-        updateDisplay();
     }
+    updateDisplay();
 }
 
 function handleEqualsClick(){
@@ -84,8 +87,8 @@ function handleClearClick(){
     updateDisplay();
 }
 
-function updateDisplay(){
-    display.textContent = firstValue + operator + secondValue;
+function updateDisplay() {
+    display.textContent = `${firstValue} ${operator} ${secondValue}`.trim();
 }
 
 clearButton.addEventListener('click', handleClearClick);
@@ -94,7 +97,7 @@ digitButtons.forEach(button => {
     button.addEventListener('click', handleDigitClick);
 });
 
-equal.addEventListener('click', handleEqualsClick);
+equalButton.addEventListener('click', handleEqualsClick);
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', handleOperatorClick);

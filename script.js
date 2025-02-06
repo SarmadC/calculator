@@ -11,7 +11,10 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    return a / b;
+    if (b === 0){
+        return 'Undefined';
+    }
+    else return a / b;
 }
 
 let firstValue = '';
@@ -35,6 +38,10 @@ function operate(firstValue, secondValue, operator){
 
 const digitButtons = document.querySelectorAll('.digit');
 const display = document.querySelector('.display');
+const equalButton = document.querySelector('.equal');
+const operatorButtons = document.querySelectorAll('.operator');
+const clearButton = document.querySelector('.clear');
+
 
 function handleDigitClick(e){
     if (operator === '') {
@@ -45,23 +52,51 @@ function handleDigitClick(e){
     }
     updateDisplay();
 }
-
 function handleOperatorClick(e){
-        if(firstValue.length > 0){
-            operator = e.target.textContent
-            updateDisplay();
-        }
+    if (firstValue.length > 0 && secondValue.length > 0 && operator != ''){
+        let result = operate(firstValue, secondValue, operator);
+        firstValue = result;
+        operator = e.target.textContent;
+        secondValue = '';
+
+        updateDisplay();
     }
+    else if(firstValue.length > 0){
+        operator = e.target.textContent
+        updateDisplay();
+    }
+}
 
 function handleEqualsClick(){
-    if (firstValue.length > 0 && secondValue.length > 0){
+    if (firstValue.length > 0 && secondValue.length > 0 && operator != ''){
+        let result =  operate(firstValue, secondValue, operator);
+        firstValue = result;
+        secondValue = '';
+        operator = '';
+        updateDisplay();
     }
+}
+
+function handleClearClick(){
+    firstValue = '';
+    secondValue = '';
+    operator = '';
+    updateDisplay();
 }
 
 function updateDisplay(){
     display.textContent = firstValue + operator + secondValue;
 }
 
+clearButton.addEventListener('click', handleClearClick);
+
 digitButtons.forEach(button => {
     button.addEventListener('click', handleDigitClick);
 });
+
+equal.addEventListener('click', handleEqualsClick);
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', handleOperatorClick);
+});
+

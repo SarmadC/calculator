@@ -32,12 +32,10 @@ function operate(firstValue, secondValue, operator){
             return add(firstValue, secondValue);
         case '-':
             return subtract(firstValue, secondValue);
-        case '*':
+        case 'x':
             return multiply(firstValue, secondValue);
-        case '/':
+        case '÷':
             return divide(firstValue, secondValue);
-        default:
-            return 'Error';
     }
 }
 
@@ -47,40 +45,40 @@ const equalButton = document.querySelector('.equal');
 const operatorButtons = document.querySelectorAll('.operator');
 const clearButton = document.querySelector('.clear');
 
+function handleDigitClick(e) {
+    const digit = e.target.textContent;
 
-function handleDigitClick(e){
     if (operator === '') {
-        firstValue += e.target.textContent;
-    }
-    else {
-        secondValue += e.target.textContent;
+        firstValue += digit;
+    } else {
+        secondValue += digit;
     }
     updateDisplay();
 }
-function handleOperatorClick(e){
-    if (firstValue.length > 0 && secondValue.length > 0 && operator != ''){
+
+function handleOperatorClick(e) {
+    const newOperator = e.target.textContent;
+
+    if (firstValue !== '' && secondValue !== '' && operator !== '') {
         let result = operate(firstValue, secondValue, operator);
-        firstValue = result;
-        operator = e.target.textContent;
+        firstValue = result.toString();
         secondValue = '';
     }
-    else if(firstValue.length > 0){
-        operator = e.target.textContent
-    }
+    operator = newOperator;
     updateDisplay();
 }
 
-function handleEqualsClick(){
-    if (firstValue.length > 0 && secondValue.length > 0 && operator != ''){
-        let result =  operate(firstValue, secondValue, operator);
-        firstValue = result;
+function handleEqualsClick() {
+    if (firstValue !== '' && secondValue !== '' && operator !== '') {
+        let result = operate(firstValue, secondValue, operator);
+        firstValue = result.toString();
         secondValue = '';
         operator = '';
         updateDisplay();
     }
 }
 
-function handleClearClick(){
+function handleClearClick() {
     firstValue = '';
     secondValue = '';
     operator = '';
@@ -88,7 +86,7 @@ function handleClearClick(){
 }
 
 function updateDisplay() {
-    display.textContent = `${firstValue} ${operator} ${secondValue}`.trim();
+    display.textContent = firstValue + (operator === ''? '' : operator + secondValue);
 }
 
 clearButton.addEventListener('click', handleClearClick);
